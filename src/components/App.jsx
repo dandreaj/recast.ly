@@ -2,14 +2,28 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: exampleVideoData,
-      currentVideo: exampleVideoData[0]
+      videos: [],
+      currentVideo: {}
     }
   }
 
   onEntryClick(songObject) {
     this.setState({
       currentVideo: songObject
+    })
+  }
+
+  componentDidMount() {
+    var options = {
+      key: window.YOUTUBE_API_KEY,
+      query: 'puppies',
+      max: 10
+    }
+    this.props.searchYouTube(options, (data) => {
+      this.setState({
+        videos: data,
+        currentVideo: data[0]
+      })
     })
   }
 

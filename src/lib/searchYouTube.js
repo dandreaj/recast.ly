@@ -14,7 +14,7 @@ var searchYouTube = (options, callback) => {
   data: youTubeData,
   contentType: 'application/json',
   success: function (data) {
-    callback(data.items);
+    callback(data.items); //array of songs
   },
   error: function (data) {
     console.error('error', data);

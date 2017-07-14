@@ -7,6 +7,23 @@ class App extends React.Component {
     }
   }
 
+  onSearchBarEntry(searchString) {
+    var options = {
+      key: window.YOUTUBE_API_KEY,
+      query: searchString,
+      max: 10
+    }
+    // console.log(options)
+    this.props.searchYouTube(options, (data) => {
+      // console.log('search youTube response data: ',data);
+      this.setState({
+        videos: data,
+        currentVideo: data[0]
+      })
+    })
+
+  }
+
   onEntryClick(songObject) {
     this.setState({
       currentVideo: songObject
@@ -29,7 +46,7 @@ class App extends React.Component {
 
   render() {
     return <div>
-      <Nav />
+      <Nav onSearchBarEntry={this.onSearchBarEntry.bind(this)}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
